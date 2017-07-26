@@ -1,0 +1,30 @@
+{
+  "DVTSourceControlWorkspaceBlueprintPrimaryRemoteRepositoryKey" : "33E10DD8980DCDCE8F162483B5BA8CCE65A297F3",
+  "DVTSourceControlWorkspaceBlueprintWorkingCopyRepositoryLocationsKey" : {
+
+  },
+  "DVTSourceControlWorkspaceBlueprintWorkingCopyStatesKey" : {
+    "B92EEF61A697367A4010751C014413182925DE64" : 9223372036854775807,
+    "33E10DD8980DCDCE8F162483B5BA8CCE65A297F3" : 9223372036854775807
+  },
+  "DVTSourceControlWorkspaceBlueprintIdentifierKey" : "261D0659-F11F-4517-8B34-ADA708DE6C2F",
+  "DVTSourceControlWorkspaceBlueprintWorkingCopyPathsKey" : {
+    "B92EEF61A697367A4010751C014413182925DE64" : "",
+    "33E10DD8980DCDCE8F162483B5BA8CCE65A297F3" : "WSProgressHUD\/"
+  },
+  "DVTSourceControlWorkspaceBlueprintNameKey" : "WSProgressHUD",
+  "DVTSourceControlWorkspaceBlueprintVersion" : 204,
+  "DVTSourceControlWorkspaceBlueprintRelativePathToProjectKey" : "WSProgressHUD.xcodeproj",
+  "DVTSourceControlWorkspaceBlueprintRemoteRepositoriesKey" : [
+    {
+      "DVTSourceControlWorkspaceBlueprintRemoteRepositoryURLKey" : "https:\/\/github.com\/wwwangS\/WSProgressHUD.git",
+      "DVTSourceControlWorkspaceBlueprintRemoteRepositorySystemKey" : "com.apple.dt.Xcode.sourcecontrol.Git",
+      "DVTSourceControlWorkspaceBlueprintRemoteRepositoryIdentifierKey" : "33E10DD8980DCDCE8F162483B5BA8CCE65A297F3"
+    },
+    {
+      "DVTSourceControlWorkspaceBlueprintRemoteRepositoryURLKey" : "https:\/\/git.oschina.net\/fkkk\/Returnees.git",
+      "DVTSourceControlWorkspaceBlueprintRemoteRepositorySystemKey" : "com.apple.dt.Xcode.sourcecontrol.Git",
+      "DVTSourceControlWorkspaceBlueprintRemoteRepositoryIdentifierKey" : "B92EEF61A697367A4010751C014413182925DE64"
+    }
+  ]
+}

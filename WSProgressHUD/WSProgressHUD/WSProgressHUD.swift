@@ -10,12 +10,74 @@
 
 import UIKit
 
+
+
+class WSProgressHUD: NSObject {
+    
+    // MARK: open
+    
+    //** strokeColor*/
+    class func strokeColor(strokeColor: UIColor){
+        instanceManager().layerStrokeColor = strokeColor
+    }
+    
+    //** fillColor*/
+    class func fillColor(fillColor: UIColor){
+        instanceManager().layerFillColor = fillColor
+    }
+    
+    
+    /// 展示扇形进度条
+    ///
+    /// - Parameters:
+    ///   - view: 父View
+    ///   - hudKey: 进度条的key
+    ///   - progress: progress
+    ///   - completed: 进度为1时的闭包，将hudKey值返回
+    class func showPieProgress(view: UIView, hudKey: String, progress: CGFloat, completed: @escaping(_ hudKey: String) ->() ) {
+        
+        
+        pieInstance.showPieProgress(view: view,
+                                    hudKey: hudKey as NSCopying,
+                                    progress: progress,
+                                    strokeColor: instanceManager().layerStrokeColor,
+                                    fillColor: instanceManager().layerFillColor) { (keyString) in
+                                        completed(keyString)
+        }
+    }
+    
+    
+    // MARK: private
+    private static let instance = WSProgressHUD()
+    private static let pieInstance = PieProgress()
+    
+    private class func instanceManager() -> WSProgressHUD{
+        return instance
+    }
+    
+    private var layerStrokeColor: UIColor = {
+        let color = UIColor.black.withAlphaComponent(0.7)
+        return color
+    }()
+    
+    private var layerFillColor: UIColor = {
+        let color = UIColor.clear
+        return color
+    }()
+}
+
+
 class PieProgress: WSProgressHUD {
     
+    private var layerContainer: NSMutableDictionary = {
+        let dic = NSMutableDictionary()
+        return dic
+    }()
     
-    fileprivate func showPieProgress(view: UIView, hudKey: NSCopying, progress: CGFloat, strokeColor: UIColor, fillColor: UIColor) {
+    fileprivate func showPieProgress(view: UIView, hudKey: NSCopying, progress: CGFloat, strokeColor: UIColor, fillColor: UIColor, completed: @escaping(_ keyString: String) ->()) {
         
         guard layerContainer.object(forKey: hudKey) != nil else {
+            // 根据key查找layer，未找到时新建
             let pieLayer = setupPieLayer(view: view,
                                          strokeColor: strokeColor,
                                          fillColor: fillColor)
@@ -29,6 +91,13 @@ class PieProgress: WSProgressHUD {
         
         let pieLayer: CAShapeLayer = layerContainer.object(forKey: hudKey) as! CAShapeLayer
         pieLayer.strokeEnd = 1 - progress
+        
+        if Int(progress) >= 1 {
+            // 进度为1，删除layer，completed闭包
+            pieLayer.removeFromSuperlayer()
+            layerContainer.removeObject(forKey: hudKey)
+            completed(hudKey as! String)
+        }
         
     }
     
@@ -59,45 +128,8 @@ class PieProgress: WSProgressHUD {
 
 
 
-class WSProgressHUD: NSObject {
-    
-    class func setStrokeColor(strokeColor: UIColor){
-        instanceManager().strokeColor = strokeColor
-    }
-    
-    class func setFillColor(fillColor: UIColor){
-        instanceManager().fillColor = fillColor
-    }
-    
-    private static let instance = WSProgressHUD()
-    private static let pieInstance = PieProgress()
-    
-    fileprivate class func instanceManager() -> WSProgressHUD{
-        return instance
-    }
-    
-    fileprivate var strokeColor: UIColor = {
-        let color = UIColor.black.withAlphaComponent(0.7)
-        return color
-    }()
-    
-    fileprivate var fillColor: UIColor = {
-        let color = UIColor.clear
-        return color
-    }()
-    
-    fileprivate var layerContainer: NSMutableDictionary = {
-        let dic = NSMutableDictionary()
-        return dic
-    }()
-    
-    
-    class func showPieProgress(view: UIView, hudKey: String, progress: CGFloat) {
-        
-        pieInstance.showPieProgress(view: view,
-                                    hudKey: hudKey as NSCopying,
-                                    progress: progress,
-                                    strokeColor: instanceManager().strokeColor,
-                                    fillColor: instanceManager().fillColor)
-    }
-}
+
+
+
+
+
